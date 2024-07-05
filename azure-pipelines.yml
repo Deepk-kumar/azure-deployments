@@ -10,9 +10,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'cf4d76c9-4916-41b9-adbc-c202d9f91a89'
-  imageRepository: 'ougabrielpipelinehello'
-  containerRegistry: 'hell0acr.azurecr.io'
+  dockerRegistryServiceConnection: 'b5933639-d77a-41aa-8fda-573c51878225'
+  imageRepository: 'apps'
+  containerRegistry: 'deepregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
