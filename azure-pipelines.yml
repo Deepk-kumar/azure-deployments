@@ -28,7 +28,7 @@ steps:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: '<YourAzureServiceConnection>'
+    azureSubscription: 'deepakkk'
     appType: 'webApp'
     WebAppName: 'app'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
