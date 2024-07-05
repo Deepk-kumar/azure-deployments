@@ -9,8 +9,9 @@ pool:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: 'Python 3.X'  # Specify your Python version here, e.g., '3.x'
+    versionSpec: '3.x'
     addToPath: true
+    architecture: 'x64'
 
 - script: |
     # Replace with your Python build commands
