@@ -7,14 +7,16 @@ pool:
   name: 'deepak'  # Replace with your agent pool name
 
 steps:
-- task: PythonScript@0
+- task: UsePythonVersion@0
   inputs:
-    scriptSource: 'inline'
-    script: |
-      # Replace with your Python build commands
-      pip install -r requirements.txt
-      python3 'app.py'
-    displayName: 'Build application'
+    versionSpec: '3.9'  # Specify your Python version here, e.g., '3.x'
+    addToPath: true
+
+- script: |
+    # Replace with your Python build commands
+    pip install -r requirements.txt
+    python3 app.py
+  displayName: 'Build and run application'
 
 - task: ArchiveFiles@2
   inputs:
