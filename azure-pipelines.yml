@@ -9,7 +9,7 @@ pool:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.X'
+    versionSpec: '3.10.X'
     addToPath: true
     architecture: 'x64'
 
