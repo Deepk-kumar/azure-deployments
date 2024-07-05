@@ -1,40 +1,36 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-- main
+  branches:
+    include:
+      - main  # Replace with your branch name
 
-resources:
-- repo: self
-
-variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'b5933639-d77a-41aa-8fda-573c51878225'
-  imageRepository: 'apps'
-  containerRegistry: 'deepregistry.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
-
-  # Agent VM image name
 pool:
- name: Ubuntu-Agent-Pool
+  name: 'deepak'  # Replace with your agent pool name
 
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      name: Ubuntu-Agent-Pool
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+steps:
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'inline'
+    script: |
+      # Replace with your Python build commands
+      pip install -r requirements.txt
+      python -m unittest discover -s tests -p '*app.py'
+    displayName: 'Build application'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'  # Replace with your build output directory
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+  displayName: 'Archive build output'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: '<YourAzureServiceConnection>'
+    appType: 'webApp'
+    WebAppName: 'app'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    enableCustomDeployment: true
+  displayName: 'Deploy to Azure App Service'
