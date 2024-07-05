@@ -9,13 +9,20 @@ pool:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3'
+    versionSpec: '3.X'
     addToPath: true
     architecture: 'x64'
 
 - script: |
-    # Replace with your Python build commands
+    python3 -m venv env
+
+    # Activate the virtual environment
+    source env/bin/activate  # Use 'env\Scripts\activate' on Windows
+
+    # Install dependencies
     pip install -r requirements.txt
+
+    # Run your Python application
     python3 app.py
   displayName: 'Build and run application'
 
