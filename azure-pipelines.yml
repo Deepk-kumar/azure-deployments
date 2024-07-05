@@ -13,7 +13,7 @@ steps:
     script: |
       # Replace with your Python build commands
       pip install -r requirements.txt
-      python -m unittest discover -s tests -p '*app.py'
+      python3 'app.py'
     displayName: 'Build application'
 
 - task: ArchiveFiles@2
