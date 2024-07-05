@@ -9,7 +9,7 @@ pool:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.9'  # Specify your Python version here, e.g., '3.x'
+    versionSpec: 'Python 3.10.12'  # Specify your Python version here, e.g., '3.x'
     addToPath: true
 
 - script: |
